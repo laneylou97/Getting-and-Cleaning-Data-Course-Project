@@ -41,8 +41,8 @@ names(y) <- "activity"
 
 activities <- read.table("./UCI HAR Dataset/activity_labels.txt")
 all_data$y[all_data$y==1] <- "Walking"
-all_data$y[all_data$y==2] <- "Walking_Upstairs"
-all_data$y[all_data$y==3] <- "Walking_Downstairs"
+all_data$y[all_data$y==2] <- "Walking_Up_Stairs"
+all_data$y[all_data$y==3] <- "Walking_Down_Stairs"
 all_data$y[all_data$y==4] <- "Sitting"
 all_data$y[all_data$y==5] <- "Standing"
 all_data$y[all_data$y==6] <- "Laying"
