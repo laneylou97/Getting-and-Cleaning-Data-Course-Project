@@ -1,4 +1,5 @@
 #Peer-graded Assignment: Getting and Cleaning Data Course Project
+library(plyr)
 library(dplyr)
 library(readr)
 library(data.table)
@@ -39,7 +40,12 @@ y <- rbind(y_test, y_train)
 names(y) <- "activity"
 
 activities <- read.table("./UCI HAR Dataset/activity_labels.txt")
-y[, 1] = activities[y[, 1], 2]
+all_data$y[all_data$y==1] <- "Walking"
+all_data$y[all_data$y==2] <- "Walking_Upstairs"
+all_data$y[all_data$y==3] <- "Walking_Downstairs"
+all_data$y[all_data$y==4] <- "Sitting"
+all_data$y[all_data$y==5] <- "Standing"
+all_data$y[all_data$y==6] <- "Laying"
 
 #appropriately label dataset variables
 names(mean_std_data) <- gsub("Acc", "Accelerometer", names(mean_std_data))
@@ -56,6 +62,6 @@ names(mean_std_data) <- gsub("angle", "Angle", names(mean_std_data))
 names(mean_std_data) <- gsub("gravity", "Gravity", names(mean_std_data))
 
 #tidy dataset
-tidy_data <- aggregate(. ~x + y, all_data, mean)
+tidy_data<-aggregate(. ~subject + y, all_data, mean)
 tidy_data<-tidy_data[order(tidy_data$x,tidy_data$y),]
 write.table(tidy_data, file = "tidy_data.txt",row.name=FALSE)
